@@ -1,4 +1,4 @@
-package com.ecosystem.backend.models;
+package com.ecosystem.backend.books.models;
 
 import java.util.List;
 

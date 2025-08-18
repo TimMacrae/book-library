@@ -1,5 +1,6 @@
 package com.ecosystem.backend.models;
 
+import com.ecosystem.backend.books.models.Book;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
