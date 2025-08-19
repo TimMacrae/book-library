@@ -2,6 +2,7 @@ import {Box, Button, Chip, Modal, Stack, TextField} from "@mui/material";
 import {type ChangeEvent, type FormEvent, useState} from "react";
 import type {Book, BookForm} from "../../types/bookType.ts";
 import axios from "axios";
+import {routerConfig} from "../../pages/routerConfig.ts";
 
 const style = {
     position: 'absolute',
@@ -36,7 +37,7 @@ export function BooksButtonAdd() {
 
      async function postBook(book:Book) {
         try {
-            const response = await axios.post("/api/books", book);
+            const response = await axios.post(routerConfig.API.BOOKS, book);
             return response.data;
         } catch (error) {
             console.error("Error posting book:", error);
