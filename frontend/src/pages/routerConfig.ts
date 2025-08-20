@@ -15,7 +15,7 @@ type API = {
 export const routerConfig:RouterConfig = {
     URL:{
         HOME:"/",
-        BOOKEDIT:"/book-edit",
+        BOOKEDIT:"/book/:id/edit",
     },
     API:{
         BOOKS:"/api/books",
