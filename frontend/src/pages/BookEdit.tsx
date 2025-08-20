@@ -5,6 +5,7 @@ import {useEffect} from "react";
 import {Button} from "@mui/material";
 import axios from "axios";
 import type {Book, BookForm} from "../types/bookType.ts";
+import {routerConfig} from "./routerConfig.ts";
 
 
 
@@ -40,7 +41,8 @@ export function BookEdit() {
     }
     function sendForm(e){
         e.preventDefault();
-        axios.put("/api/books/", bookData).then();
+        axios.put(routerConfig.API.BOOKS, bookData)
+            .then();
     }
 
     useEffect(()=>{
