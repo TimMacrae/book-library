@@ -1,16 +1,18 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import {useEffect} from "react";
-import {Button} from "@mui/material";
+
 import axios from "axios";
 import type {Book, BookForm} from "../types/bookType.ts";
 import {routerConfig} from "./routerConfig.ts";
 
 
 
-export function BookEdit() {
-    function getBookData(){
+export function BookEdit(bookId: string) {
+
+    function getBookDataById(bookId){
         // Mock bis get done
         return {
             id:"123",
@@ -23,7 +25,7 @@ export function BookEdit() {
             isbn : "9780007123827"
         }
     }
-    let bookData:Book = getBookData();
+    let bookData:Book = getBookDataById(bookId);
 
     const [book, setBook] = React.useState<Book>({
         id:"",
@@ -36,17 +38,18 @@ export function BookEdit() {
         isbn : ""
     });
     function setBookValue(e){
-        bookData[e.target.name] = e.target.value;
-        setBook(bookData);
+        setBook(prev => ({
+            ...prev,                     // alle alten Felder behalten
+            [e.target.name]: (e.target.name=="authors"?e.target.value.split(","):e.target.value) // nur das Feld ändern, das im Input steht
+        }));
     }
     function sendForm(e){
         e.preventDefault();
-        axios.put(routerConfig.API.BOOKS, bookData)
-            .then();
+        axios.put(routerConfig.API.BOOKS, book);
     }
 
     useEffect(()=>{
-        setBook(bookData);
+        setBook(getBookDataById(bookId));
     },[])
 
     return (
@@ -58,6 +61,7 @@ export function BookEdit() {
                 autoComplete="off"
                 onSubmit={sendForm}
             >
+                <input type={"hidden"} name={"id"} value={book.id} />
                 <TextField
                     id="title"
                     name="title"
@@ -81,7 +85,7 @@ export function BookEdit() {
                     name="authors"
                     label="Authors"
                     variant="outlined"
-                    value={book.authors.map((author)=>author+",")}
+                    value={typeof book.authors==="array"?book.authors?.map((author)=>author+", "):book.authors}
                     onChange={setBookValue}
                     helperText="Authors of the book, seperated by ','"
                     fullWidth
