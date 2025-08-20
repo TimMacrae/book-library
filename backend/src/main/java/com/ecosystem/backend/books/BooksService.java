@@ -36,7 +36,7 @@ public class BooksService {
         }
     }
 
-    public void deleteBooksById(String id) {
+    public void deleteBooksById(String id) throws BookWasNotFound {
         booksRepo.findById(id).orElseThrow(() -> new BookWasNotFound(id));
         booksRepo.deleteById(id);
     }

@@ -24,7 +24,7 @@ public class BooksController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBookById(@PathVariable String id) throws Exception {
+    public void deleteBookById(@PathVariable String id) {
         booksService.deleteBooksById(id);
     }
 
