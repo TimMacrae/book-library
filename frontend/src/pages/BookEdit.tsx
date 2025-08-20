@@ -7,11 +7,11 @@ import {useEffect} from "react";
 import axios from "axios";
 import type {Book, BookForm} from "../types/bookType.ts";
 import {routerConfig} from "./routerConfig.ts";
+import { useParams } from "react-router-dom";
 
 
-
-export function BookEdit(bookId: string) {
-
+export function BookEdit() {
+    const {bookId} = useParams();
     function getBookDataById(bookId){
         // Mock bis get done
         return {
