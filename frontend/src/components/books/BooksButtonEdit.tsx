@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 import {useNavigate} from "react-router-dom";
 
 
-export function BooksButtonEdit(props:string){
+export function BooksButtonEdit(props){
     const navigate = useNavigate();
     function goToBook(){
         navigate(`/book/${props.id}/edit`)
