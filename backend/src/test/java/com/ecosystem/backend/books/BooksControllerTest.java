@@ -1,8 +1,8 @@
 package com.ecosystem.backend.books;
 
+import com.ecosystem.backend.books.models.Book;
 import com.ecosystem.backend.books.repository.BooksRepo;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -77,15 +78,27 @@ class BooksControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is(HttpStatus.BAD_REQUEST.value()));
     }
 
-    //    @Test
-//    void deleteBookById_shouldReturnVoid_whenCalled() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.delete("/books/1"))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
-//    }
+    @Test
+    void deleteBookById_shouldReturnVoid_whenCalled() throws Exception {
+        Book book = new Book(
+                "1",
+                "title",
+                "description",
+                List.of("author1", "author2"),
+                "2020",
+                "cover.png",
+                "en",
+                "123456789"
+        );
+        Book newBook = booksRepo.save(book);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/"+newBook.id()))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 
     @Test
     void deleteBookById_shouldReturn404_whenBookDoesntExist() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/books/1"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/1"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
