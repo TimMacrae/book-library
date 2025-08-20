@@ -22,13 +22,10 @@ export default function BooksButtonDelete (props: BooksButtonDeleteProps) {
     function handleDelete(id: string) {
         axios.delete(routerConfig.API.BOOKS + "/" + id)
             .then(() => {
-                console.log("Buch erfolgreich gelöscht")
                 handleClose()
             })
             .catch((error) => {
-                    console.log(error) // errorhandling hinzufügen
                     handleClose()
-
                 }
             )
     }
