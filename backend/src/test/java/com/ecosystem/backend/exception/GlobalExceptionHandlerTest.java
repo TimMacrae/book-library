@@ -31,7 +31,6 @@ class GlobalExceptionHandlerTest {
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertNotNull(response.getBody());
-        System.out.println(response.getBody());
         assertTrue(response.getBody().message().contains("title must not be blank"));
     }
 
