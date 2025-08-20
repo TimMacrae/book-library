@@ -40,7 +40,6 @@ export function BooksButtonAdd() {
             const response = await axios.post(routerConfig.API.BOOKS, book);
             return response.data;
         } catch (error) {
-            console.error("Error posting book:", error);
             throw error;
         }
     }
