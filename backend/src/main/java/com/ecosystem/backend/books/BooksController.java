@@ -21,6 +21,12 @@ public class BooksController {
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
     }
 
+    @PutMapping
+    public ResponseEntity<Book> updateBook(@Valid @RequestBody BookDto bookDto) {
+        Book book = booksService.updateBook(bookDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(book);
+    }
+
     @ExceptionHandler(BookCouldNotBeCreated.class)
     public ResponseEntity<?> handleBookCouldNotBeCreated(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
