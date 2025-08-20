@@ -35,4 +35,26 @@ public class BooksService {
         }
 
     }
+
+    public Book updateBook(Book bookData) {
+        try {
+            booksRepo.deleteById();
+            Book book = new Book(
+                    bookData.id(),
+                    bookData.title(),
+                    bookData.description(),
+                    bookData.authors(),
+                    bookData.firstPublishDate(),
+                    bookData.cover(),
+                    bookData.language(),
+                    bookData.isbn()
+            );
+
+            return booksRepo.save(book);
+
+        } catch (Exception exception) {
+            throw new BookCouldNotBeCreated();
+        }
+
+    }
 }
