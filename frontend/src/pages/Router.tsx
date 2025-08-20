@@ -1,11 +1,13 @@
-import {Routes, Route} from "react-router-dom"
-import {routerConfig} from "./routerConfig.ts";
-import {HomePage} from "./HomePage.tsx";
+import { Routes, Route } from "react-router-dom";
+import { HomePage } from "./HomePage";
+import { BookDetailCard } from "../components/BookDetailCard.tsx";
+
 
 export function Router() {
     return (
         <Routes>
-            <Route path={routerConfig.URL.HOME} element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/books/:id" element={<BookDetailCard />} />
         </Routes>
-    )
+    );
 }
