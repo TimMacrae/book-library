@@ -48,7 +48,7 @@ export default function BookCard({ book }: Readonly<BookCardProps>) {
                 />
             )}
             <div style={{ padding: "12px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600, textAlign: "center" }}>
+                <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 600, textAlign: "center", color: "black" }}>
                     {book.title}
                 </h3>
                 <p style={{ margin: 0, fontSize: "0.85rem", color: "#666", textAlign: "center" }}>
