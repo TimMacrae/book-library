@@ -30,7 +30,7 @@ class BooksControllerTest {
     private BooksService booksService;
 
     @Test
-    void createBook_ShouldReturnCreatedBook () throws Exception {
+    void createBook_ShouldReturnCreatedBook() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/books").contentType(MediaType.APPLICATION_JSON).content(
                         """
                                 {
@@ -62,7 +62,7 @@ class BooksControllerTest {
     }
 
     @Test
-    void createBook_ShouldThrowAnException () throws Exception {
+    void createBook_ShouldThrowAnException() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/books").contentType(MediaType.APPLICATION_JSON).content(
                         """
                                 {
@@ -77,7 +77,7 @@ class BooksControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is(HttpStatus.BAD_REQUEST.value()));
     }
 
-        //    @Test
+    //    @Test
 //    void deleteBookById_shouldReturnVoid_whenCalled() throws Exception {
 //        mockMvc.perform(MockMvcRequestBuilders.delete("/books/1"))
 //                .andExpect(MockMvcResultMatchers.status().isOk());
