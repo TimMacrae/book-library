@@ -38,7 +38,7 @@ public class BooksService {
 
     public Book updateBook(Book bookData) {
         try {
-            booksRepo.deleteById();
+            booksRepo.deleteById(bookData.id());
             Book book = new Book(
                     bookData.id(),
                     bookData.title(),
