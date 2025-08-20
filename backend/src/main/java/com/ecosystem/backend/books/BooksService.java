@@ -1,4 +1,5 @@
 package com.ecosystem.backend.books;
+import com.ecosystem.backend.exception.BookNotFoundException;
 import com.ecosystem.backend.books.models.Book;
 import com.ecosystem.backend.books.repository.BooksRepo;
 import org.springframework.stereotype.Service;
