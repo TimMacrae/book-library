@@ -22,9 +22,9 @@ public class BooksController {
     }
 
     @PutMapping
-    public ResponseEntity<Book> updateBook(@Valid @RequestBody BookDto bookDto) {
-        Book book = booksService.updateBook(bookDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(book);
+    public ResponseEntity<Book> updateBook(@Valid @RequestBody Book bookData) {
+        Book book = booksService.updateBook(bookData);
+        return ResponseEntity.status(HttpStatus.OK).body(book);
     }
 
     @ExceptionHandler(BookCouldNotBeCreated.class)
