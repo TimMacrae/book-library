@@ -5,6 +5,8 @@ type RouterConfig = {
 
 type URL = {
     HOME: string,
+    LIBRARY: string,
+    FAVORITES: string,
 }
 
 type API = {
@@ -14,6 +16,8 @@ type API = {
 export const routerConfig:RouterConfig = {
     URL:{
         HOME:"/",
+        LIBRARY:"/library",
+        FAVORITES:"/favorites",
     },
     API:{
         BOOKS:"/api/books",
