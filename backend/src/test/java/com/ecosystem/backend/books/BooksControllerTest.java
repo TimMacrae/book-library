@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -102,4 +105,66 @@ class BooksControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
+    @Test
+    @DirtiesContext
+    void getAllBooks() throws Exception {
+        // GIVEN
+        booksRepo.deleteAll();
+        Book b1 = new Book("1", "Book 1", "Description 1", List.of("Author 1"), "2020", "cover1.jpg", "EN", "1234567890");
+        Book b2 = new Book("2", "Book 2", "Description 2", List.of("Author 2"), "2021", "cover2.jpg", "EN", "0987654321");
+        booksRepo.saveAll(List.of(b1, b2));
+
+        // WHEN & THEN
+        mockMvc.perform(get("/api/books"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [
+                      {
+                        "id": "1",
+                        "title": "Book 1",
+                        "description": "Description 1",
+                        "authors": ["Author 1"],
+                        "firstPublishDate": "2020",
+                        "cover": "cover1.jpg",
+                        "language": "EN",
+                        "isbn": "1234567890"
+                      },
+                      {
+                       "id": "2",
+                       "title": "Book 2",
+                       "description": "Description 2",
+                       "authors": ["Author 2"],
+                       "firstPublishDate": "2021",
+                       "cover": "cover2.jpg",
+                       "language": "EN",
+                       "isbn": "0987654321"
+                     }
+                    ]
+                    """));
+    }
+
+    @Test
+    @DirtiesContext
+    void getBookById() throws Exception {
+        // GIVEN
+        Book book = new Book("1", "Book 1", "Description 1", List.of("Author 1"), "2020", "cover1.jpg", "EN", "1234567890");
+        booksRepo.save(book);
+
+        // WHEN & THEN
+        mockMvc.perform(get("/api/books/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    
+                        {
+                          "id": "1",
+                          "title": "Book 1",
+                          "description": "Description 1",
+                          "authors": ["Author 1"],
+                          "firstPublishDate": "2020",
+                          "cover": "cover1.jpg",
+                          "language": "EN",
+                          "isbn": "1234567890"
+                         }
+                    """));
+    }
 }

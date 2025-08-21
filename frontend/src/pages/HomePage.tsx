@@ -1,8 +1,9 @@
-export function HomePage() {
+import { BooksGallery } from "../components/books/BooksGallery.tsx";
 
+export function HomePage() {
     return (
-        <>
-        <div>Home page</div>
-        </>
-    )
+        <div>
+            <BooksGallery />
+        </div>
+    );
 }
