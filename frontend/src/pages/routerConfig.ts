@@ -7,6 +7,7 @@ type URL = {
     HOME: string,
     LIBRARY: string,
     FAVORITES: string,
+    BOOKS: string,
 }
 
 type API = {
@@ -18,6 +19,7 @@ export const routerConfig:RouterConfig = {
         HOME:"/",
         LIBRARY:"/library",
         FAVORITES:"/favorites",
+        BOOKS:"/books"
     },
     API:{
         BOOKS:"/api/books",
