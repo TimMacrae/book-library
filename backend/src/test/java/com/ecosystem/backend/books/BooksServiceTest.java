@@ -1,10 +1,10 @@
 package com.ecosystem.backend.books;
 
 import com.ecosystem.backend.books.dto.BookDto;
-import com.ecosystem.backend.exception.BookNotFoundException;
 import com.ecosystem.backend.books.models.Book;
 import com.ecosystem.backend.books.repository.BooksRepo;
 import com.ecosystem.backend.exception.BookCouldNotBeCreated;
+import com.ecosystem.backend.exception.BookWasNotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -74,13 +74,13 @@ class BooksServiceTest {
     @Test
     void deleteBooksById_shouldCallBooksRepoDeleteById_WhenStudentExists() throws Exception {
         //Given
-        BooksRepo booksRepo = mock(BooksRepo.class);
-        BooksService booksService = new BooksService(booksRepo);
+        booksRepo = mock(BooksRepo.class);
+        booksService = new BooksService(booksRepo);
 
         List<String> authors = new ArrayList<String>();
         authors.add("author1");
         authors.add("author2");
-        Book book = new Book("1", "Test", "Test book for testing", authors,"1951", "123456", "English", "12345");
+        book = new Book("1", "Test", "Test book for testing", authors,"1951", "123456", "English", "12345");
         Optional<Book> response= Optional.of(book);
 
         when(booksRepo.findById("1")).thenReturn(response);
@@ -95,8 +95,8 @@ class BooksServiceTest {
     @Test
     void deleteBooksById_shouldThrowException_WhenStudentDoesNotExist() throws Exception {
         //Given
-        BooksRepo booksRepo = mock(BooksRepo.class);
-        BooksService booksService = new BooksService(booksRepo);
+        booksRepo = mock(BooksRepo.class);
+        booksService = new BooksService(booksRepo);
 
         when(booksRepo.findById("1")).thenReturn(null);
 
@@ -132,7 +132,7 @@ class BooksServiceTest {
     void getBookById_Test_whenValidId_ThenReturnBook() {
         // GIVEN
         String id = "1";
-        Book book = new Book("1", "Book 1", "Description 1", List.of("Author 1"),
+        book = new Book("1", "Book 1", "Description 1", List.of("Author 1"),
                 "2020", "cover1.jpg", "EN", "1234567890");
         when(booksRepo.findById(id)).thenReturn(Optional.of(book));
 
@@ -151,7 +151,7 @@ class BooksServiceTest {
         when(booksRepo.findById(id)).thenReturn(Optional.empty());
 
         // WHEN & THEN
-        assertThrows(BookNotFoundException.class, () -> booksService.getBookById(id));
+        assertThrows(BookWasNotFound.class, () -> booksService.getBookById(id));
         verify(booksRepo).findById(id);
     }
 }
