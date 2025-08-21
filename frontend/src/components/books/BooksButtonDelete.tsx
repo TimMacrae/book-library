@@ -24,7 +24,7 @@ export default function BooksButtonDelete (props: BooksButtonDeleteProps) {
             .then(() => {
                 handleClose()
             })
-            .catch((error) => {
+            .catch(() => {
                     handleClose()
                 }
             )
