@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { Book } from "../types/Book";
-import { exampleBooks } from "./exampleBooks.ts";
+import { exampleBooks } from "./exampleBooks";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 export function BookDetailCard() {
     const { id } = useParams<{ id: string }>();
@@ -15,63 +16,81 @@ export function BookDetailCard() {
         setLoading(false);
     }, [id]);
 
-    if (loading) return <p>Lade Buchdaten...</p>;
-    if (!book) return <p>Buch nicht gefunden!</p>;
+    if (loading) return <Typography>Lade Buchdaten...</Typography>;
+    if (!book) return <Typography>Buch nicht gefunden!</Typography>;
 
     return (
-        <div
-            style={{
-                maxWidth: 800,
-                margin: "20px auto",
-                border: "1px solid #ccc",
-                borderRadius: "8px",
-                padding: "20px",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            }}
-        >
-            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>{book.title}</h2>
-
+        <Card sx={{ maxWidth: 700, margin: "auto", mt: 4, p: 2, borderRadius: 3 }}>
             {book.cover && (
-                <div style={{ textAlign: "center", marginBottom: "20px" }}>
-                    <img
-                        src={book.cover}
-                        alt={book.title}
-                        style={{ width: 200, borderRadius: "4px" }}
-                    />
-                </div>
+                <Box
+                    component="img"
+                    src={book.cover}
+                    alt={book.title}
+                    sx={{ width: "100%", height: 300, objectFit: "cover", mb: 1, borderRadius: 4 }}
+                />
             )}
 
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: "auto auto",
-                    rowGap: "10px",
-                    columnGap: "20px",
-                    textAlign: "left",
-                    alignItems: "start",
-                }}
-            >
-                <span><strong>ID:</strong></span>
-                <span>{book.id}</span>
+            <CardContent sx={{ pt: 1 }}>
+                {/* Titel */}
+                <Typography
+                    variant="h5"
+                    gutterBottom
+                    align="center"
+                    sx={{ mb: 1 }}
+                >
+                    {book.title}
+                </Typography>
 
-                <span><strong>Titel:</strong></span>
-                <span>{book.title}</span>
+                <Box
+                    sx={{
+                        width: "100%",
+                        height: "2px",
+                        bgcolor: "black",
+                        mb: 2
+                    }}
+                />
 
-                <span><strong>Beschreibung:</strong></span>
-                <span>{book.description}</span>
+                {book.description && (
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        align="center"
+                        sx={{ mb: 3 }}
+                    >
+                        {book.description}
+                    </Typography>
+                )}
 
-                <span><strong>Autor(en):</strong></span>
-                <span>{book.authors.join(", ")}</span>
+                <Box
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: "180px 1fr",
+                        rowGap: 1.5,
+                        columnGap: 2,
+                        textAlign: "left",
+                    }}
+                >
+                    <Typography variant="body2" color="text.secondary" fontWeight="bold">
+                        Autor(en):
+                    </Typography>
+                    <Typography variant="body2">{book.authors.join(", ")}</Typography>
 
-                <span><strong>Erstveröffentlichung:</strong></span>
-                <span>{book.firstPublishDate}</span>
+                    <Typography variant="body2" color="text.secondary" fontWeight="bold">
+                        Erstveröffentlichung:
+                    </Typography>
+                    <Typography variant="body2">{book.firstPublishDate}</Typography>
 
-                <span><strong>Sprache:</strong></span>
-                <span>{book.language}</span>
+                    <Typography variant="body2" color="text.secondary" fontWeight="bold">
+                        Sprache:
+                    </Typography>
+                    <Typography variant="body2">{book.language}</Typography>
 
-                <span><strong>ISBN:</strong></span>
-                <span>{book.isbn}</span>
-            </div>
-        </div>
+                    <Typography variant="body2" color="text.secondary" fontWeight="bold">
+                        ISBN:
+                    </Typography>
+                    <Typography variant="body2">{book.isbn}</Typography>
+                </Box>
+            </CardContent>
+        </Card>
     );
 }
