@@ -10,7 +10,7 @@ import {routerConfig} from "./routerConfig.ts";
 import { useParams } from "react-router-dom";
 
 
-export function BookEdit() {
+export function BookEditPage() {
     const {bookId} = useParams();
     function getBookDataById(bookId){
         // Mock bis get done
