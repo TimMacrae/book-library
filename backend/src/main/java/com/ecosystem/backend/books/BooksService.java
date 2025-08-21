@@ -46,25 +46,25 @@ public class BooksService {
         //find book in db
         try {
             booksRepo.deleteById(bookData.id());
-            try {
-                Book book = new Book(
-                        generateId(),
-                        bookData.title(),
-                        bookData.description(),
-                        bookData.authors(),
-                        bookData.firstPublishDate(),
-                        bookData.cover(),
-                        bookData.language(),
-                        bookData.isbn()
-                );
-
-                return booksRepo.save(book);
-
-            } catch (Exception exception) {
-                throw new BookCouldNotBeCreated();
-            }
         } catch (Exception exception) {
             throw new BookCouldNotBeDeleted();
+        }
+        try {
+            Book book = new Book(
+                    generateId(),
+                    bookData.title(),
+                    bookData.description(),
+                    bookData.authors(),
+                    bookData.firstPublishDate(),
+                    bookData.cover(),
+                    bookData.language(),
+                    bookData.isbn()
+            );
+
+            return booksRepo.save(book);
+
+        } catch (Exception exception) {
+            throw new BookCouldNotBeCreated();
         }
     }
 }
