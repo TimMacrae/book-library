@@ -1,11 +1,11 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import {useState} from "react";
-import type {Book} from "../../types/bookTypes.ts";
+import type {BookWithId} from "../../types/bookType.ts";
 import axios from 'axios';
 import {routerConfig} from "../../pages/routerConfig.ts";
 
 type BooksButtonDeleteProps = {
-    book: Book
+    book: BookWithId
 }
 
 export default function BooksButtonDelete (props: BooksButtonDeleteProps) {
