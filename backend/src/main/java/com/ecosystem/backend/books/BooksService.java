@@ -48,7 +48,7 @@ public class BooksService {
             booksRepo.deleteById(bookData.id());
             try {
                 Book book = new Book(
-                        bookData.id(),
+                        generateId(),
                         bookData.title(),
                         bookData.description(),
                         bookData.authors(),
