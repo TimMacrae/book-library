@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
-import type {Book} from "../../types/Book.ts";
 import {BookCard} from "./BookCard.tsx";
 import {Box, Grid} from "@mui/material";
 import {LoadingSpinner} from "../LoadingSpinner.tsx";
 import  axios from "axios";
 import {routerConfig} from "../../pages/routerConfig.ts";
+import type {Book} from "../../types/bookTypes.ts";
 
 export function BooksGallery() {
     const [books, setBooks] = useState<Book[]>([]);

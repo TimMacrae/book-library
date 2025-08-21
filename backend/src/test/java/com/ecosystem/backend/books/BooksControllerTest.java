@@ -110,8 +110,8 @@ class BooksControllerTest {
     void getAllBooks() throws Exception {
         // GIVEN
         booksRepo.deleteAll();
-        Book b1 = new Book("1", "Buch 1", "Beschreibung 1", List.of("Autor 1"), "2020", "cover1.jpg", "DE", "1234567890");
-        Book b2 = new Book("2", "Buch 2", "Beschreibung 2", List.of("Autor 2"), "2021", "cover2.jpg", "DE", "0987654321");
+        Book b1 = new Book("1", "Book 1", "Description 1", List.of("Author 1"), "2020", "cover1.jpg", "EN", "1234567890");
+        Book b2 = new Book("2", "Book 2", "Description 2", List.of("Author 2"), "2021", "cover2.jpg", "EN", "0987654321");
         booksRepo.saveAll(List.of(b1, b2));
 
         // WHEN & THEN
@@ -121,24 +121,24 @@ class BooksControllerTest {
                     [
                       {
                         "id": "1",
-                        "title": "Buch 1",
-                        "description": "Beschreibung 1",
-                        "authors": ["Autor 1"],
+                        "title": "Book 1",
+                        "description": "Description 1",
+                        "authors": ["Author 1"],
                         "firstPublishDate": "2020",
                         "cover": "cover1.jpg",
-                        "language": "DE",
+                        "language": "EN",
                         "isbn": "1234567890"
                       },
                       {
-                        "id": "2",
-                        "title": "Buch 2",
-                        "description": "Beschreibung 2",
-                        "authors": ["Autor 2"],
-                        "firstPublishDate": "2021",
-                        "cover": "cover2.jpg",
-                        "language": "DE",
-                        "isbn": "0987654321"
-                      }
+                       "id": "2",
+                       "title": "Book 2",
+                       "description": "Description 2",
+                       "authors": ["Author 2"],
+                       "firstPublishDate": "2021",
+                       "cover": "cover2.jpg",
+                       "language": "EN",
+                       "isbn": "0987654321"
+                     }
                     ]
                     """));
     }
@@ -147,23 +147,24 @@ class BooksControllerTest {
     @DirtiesContext
     void getBookById() throws Exception {
         // GIVEN
-        Book book = new Book("1", "Buch 1", "Beschreibung 1", List.of("Autor 1"), "2020", "cover1.jpg", "DE", "1234567890");
+        Book book = new Book("1", "Book 1", "Description 1", List.of("Author 1"), "2020", "cover1.jpg", "EN", "1234567890");
         booksRepo.save(book);
 
         // WHEN & THEN
         mockMvc.perform(get("/api/books/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                    {
-                      "id": "1",
-                      "title": "Buch 1",
-                      "description": "Beschreibung 1",
-                      "authors": ["Autor 1"],
-                      "firstPublishDate": "2020",
-                      "cover": "cover1.jpg",
-                      "language": "DE",
-                      "isbn": "1234567890"
-                    }
+                    
+                        {
+                          "id": "1",
+                          "title": "Book 1",
+                          "description": "Description 1",
+                          "authors": ["Author 1"],
+                          "firstPublishDate": "2020",
+                          "cover": "cover1.jpg",
+                          "language": "EN",
+                          "isbn": "1234567890"
+                         }
                     """));
     }
 }

@@ -1,8 +1,8 @@
-import type {Book} from "../../types/Book.ts";
 import {useNavigate} from "react-router-dom";
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import {routerConfig} from "../../pages/routerConfig.ts";
 import BrokenImageIcon from '@mui/icons-material/BrokenImage';
+import type {Book} from "../../types/bookTypes.ts";
 
 type BookCardProps = {
     book: Book;
@@ -79,7 +79,7 @@ export function BookCard({book}: Readonly<BookCardProps>) {
                 </Typography>
 
                 <Typography variant="body2" color="text.secondary">
-                    Veröffentlicht am: {book.firstPublishDate}
+                    published : {book.firstPublishDate}
                 </Typography>
             </CardContent>
         </Card>

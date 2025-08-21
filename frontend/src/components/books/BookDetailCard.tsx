@@ -1,5 +1,6 @@
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import type {Book} from "../../types/Book.ts";
+import type {Book} from "../../types/bookTypes.ts";
+
 
 type BookCardProps = {
     book: Book;
@@ -18,7 +19,6 @@ export function BookDetailCard({book}:BookCardProps) {
     )}
 
     <CardContent sx={{ pt: 1 }}>
-        {/* Titel */}
         <Typography
             variant="h5"
             gutterBottom
@@ -58,17 +58,17 @@ export function BookDetailCard({book}:BookCardProps) {
             }}
         >
             <Typography variant="body2" color="text.secondary" fontWeight="bold">
-                Autor(en):
+                Author(s):
             </Typography>
             <Typography variant="body2">{book.authors.join(", ")}</Typography>
 
             <Typography variant="body2" color="text.secondary" fontWeight="bold">
-                Erstveröffentlichung:
+                Published:
             </Typography>
             <Typography variant="body2">{book.firstPublishDate}</Typography>
 
             <Typography variant="body2" color="text.secondary" fontWeight="bold">
-                Sprache:
+                Language:
             </Typography>
             <Typography variant="body2">{book.language}</Typography>
 
