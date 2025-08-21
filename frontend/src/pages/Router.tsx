@@ -1,13 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./HomePage";
-import { BookDetailCard } from "../components/BookDetailCard.tsx";
+import { BookDetailPage } from "./BookDetailPage.tsx";
+import {routerConfig} from "./routerConfig.ts";
 
 
 export function Router() {
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/books/:id" element={<BookDetailCard />} />
+            <Route path={routerConfig.URL.HOME} element={<HomePage />} />
+            <Route path={`${routerConfig.URL.BOOKS}/:id`} element={<BookDetailPage />} />
         </Routes>
     );
 }
