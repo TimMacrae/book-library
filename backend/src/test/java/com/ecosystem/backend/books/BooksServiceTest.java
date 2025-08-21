@@ -74,8 +74,6 @@ class BooksServiceTest {
     @Test
     void deleteBooksById_shouldCallBooksRepoDeleteById_WhenStudentExists() throws Exception {
         //Given
-        booksRepo = mock(BooksRepo.class);
-        booksService = new BooksService(booksRepo);
 
         List<String> authors = new ArrayList<String>();
         authors.add("author1");
