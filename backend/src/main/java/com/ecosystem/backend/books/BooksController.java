@@ -25,12 +25,12 @@ public class BooksController {
 
     @GetMapping
     public List<Book> getAllBooks() {
-        return service .getAllBooks();
+        return booksService.getAllBooks();
     }
 
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable String id) {
-        return service.getBookById(id);
+        return booksService.getBookById(id);
     }
 
     @PostMapping
@@ -46,16 +46,16 @@ public class BooksController {
     }
 
     @ExceptionHandler(BookCouldNotBeCreated.class)
-    public ResponseEntity<?> handleBookCouldNotBeCreated(Exception exception) {
+    public ResponseEntity<ExceptionMessage> handleBookCouldNotBeCreated(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ExceptionMessage(exception.getMessage())
         );
     }
 
     @ExceptionHandler(BookWasNotFound.class)
-    public ResponseEntity<?> handleBookWasNotFound(BookWasNotFound exception) {
+    public ResponseEntity<ExceptionMessage> handleBookWasNotFound(BookWasNotFound exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ExceptionMessage(exception.getMessage())
         );
     }
-    }
+}
