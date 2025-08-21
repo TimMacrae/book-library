@@ -10,12 +10,28 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
 @AllArgsConstructor
 public class BooksController {
    private final BooksService booksService;
+
+    @GetMapping
+    public List<Book> getAllBooks() {
+        return booksService.getAllBooks();
+    }
+
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable String id) {
+        return booksService.getBookById(id);
+    }
 
     @PostMapping
     public ResponseEntity<Book> addBook(@Valid @RequestBody BookDto bookDto) {
@@ -30,17 +46,16 @@ public class BooksController {
     }
 
     @ExceptionHandler(BookCouldNotBeCreated.class)
-    public ResponseEntity<?> handleBookCouldNotBeCreated(Exception exception) {
+    public ResponseEntity<ExceptionMessage> handleBookCouldNotBeCreated(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ExceptionMessage(exception.getMessage())
         );
     }
 
     @ExceptionHandler(BookWasNotFound.class)
-    public ResponseEntity<?> handleBookWasNotFound(BookWasNotFound exception) {
+    public ResponseEntity<ExceptionMessage> handleBookWasNotFound(BookWasNotFound exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ExceptionMessage(exception.getMessage())
         );
-
     }
 }
