@@ -95,8 +95,6 @@ class BooksServiceTest {
     @Test
     void deleteBooksById_shouldThrowException_WhenStudentDoesNotExist() throws Exception {
         //Given
-        booksRepo = mock(BooksRepo.class);
-        booksService = new BooksService(booksRepo);
 
         when(booksRepo.findById("1")).thenReturn(null);
 
