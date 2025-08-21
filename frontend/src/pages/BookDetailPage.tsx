@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { Book } from "../types/Book.ts";
+import type { BookWithId } from "../types/bookType.ts";
 import { Typography } from "@mui/material";
 import axios from "axios";
 import {routerConfig} from "./routerConfig.ts";
@@ -9,13 +9,13 @@ import {BookDetailCard} from "../components/books/BookDetailCard.tsx";
 
 export function BookDetailPage() {
     const { id } = useParams<{ id: string }>();
-    const [book, setBook] = useState<Book | null>(null);
+    const [book, setBook] = useState<BookWithId | null>(null);
     const [loading, setLoading] = useState(true);
 
     const getBookDetails = async () => {
         setLoading(true);
         try {
-            const response = await axios.get<Book>(`${routerConfig.URL.BOOKS}/${id}`);
+            const response = await axios.get<BookWithId>(`${routerConfig.URL.BOOKS}/${id}`);
             if (response.status === 200) {
                 setBook(response.data);
             }

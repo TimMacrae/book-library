@@ -1,9 +1,9 @@
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import type {Book} from "../../types/bookTypes.ts";
+import type {BookWithId} from "../../types/bookType.ts";
 
 
 type BookCardProps = {
-    book: Book;
+    book: BookWithId;
 }
 
 export function BookDetailCard({book}:BookCardProps) {
