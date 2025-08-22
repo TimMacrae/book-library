@@ -1,35 +1,21 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
-import {type ChangeEvent, type FormEvent, useEffect} from "react";
+import {type ChangeEvent, type FormEvent, useEffect, useState} from "react";
 
 import axios from "axios";
-import type { BookId} from "../types/bookType.ts";
+import type { BookWithId} from "../types/bookType.ts";
 import {routerConfig} from "./routerConfig.ts";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {TitleActionBar} from "../components/TitleActionBar.tsx";
+import Container from "@mui/material/Container";
 
 
 export function BookEditPage() {
-    const {bookId} = useParams();
-    function getBookDataById(bookId:string){
-        // Mock bis get done
-        console.log(bookId);
-        return {
-            id:"123",
-            title:"The Lord of The Rings",
-            description : "",
-            authors : ["J.R.R. Tolkien"],
-            firstPublishDate : "1954-07-29",
-            cover : "sad",
-            language : "de",
-            isbn : "9780007123827"
-        }
-    }
-    let bookData:BookId = getBookDataById(bookId ?? "");
-    console.log(bookData);
+    const {id} = useParams();
+    const navigate = useNavigate()
 
-    const [book, setBook] = React.useState<BookId>({
+    const [book, setBook] = useState<BookWithId>({
         id:"",
         title:"",
         description : "",
@@ -39,26 +25,47 @@ export function BookEditPage() {
         language : "",
         isbn : ""
     });
+
+    async function getBookDataById(id:string){
+        try{
+            const response = await axios.get(routerConfig.API.BOOK_ID(id));
+            if(response.status === 200){
+                setBook(response.data);
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+
     function setBookValue(e:ChangeEvent<HTMLInputElement>){
         setBook(prev => ({
             ...prev,
             [e.target.name]: (e.target.name=="authors"?e.target.value.split(","):e.target.value)
         }));
     }
-    function sendForm(e:FormEvent<HTMLFormElement> ){
+
+    async function sendForm(e:FormEvent<HTMLFormElement> ){
+        if(!id) return
         e.preventDefault();
-        axios.put(routerConfig.API.BOOKS, book);
+       await axios.put(routerConfig.API.BOOKS, book);
+       navigate(routerConfig.URL.BOOK_ID(id));
     }
 
-    useEffect(()=>{
-        setBook(getBookDataById(bookId??""));
-    },[])
+    useEffect(() => {
+        if(!id) return
+        getBookDataById(id)
+    }, [id]);
+
+
 
     return (
-        <>
+        <Container>
+            <TitleActionBar title={`Edit ${ book.title || "Book"}`}>
+                <div></div>
+            </TitleActionBar>
             <Box
                 component="form"
-                sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                 noValidate
                 autoComplete="off"
                 onSubmit={sendForm}
@@ -131,7 +138,7 @@ export function BookEditPage() {
                 /><br/>
                 <Button type={"submit"} variant={"contained"}>Save</Button>
             </Box>
-        </>
+        </Container>
     );
 
 }
