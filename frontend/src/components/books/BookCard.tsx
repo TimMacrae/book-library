@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
-import {Box, Card, CardContent, Typography} from "@mui/material";
+import { Card, CardContent, Typography} from "@mui/material";
 import {routerConfig} from "../../pages/routerConfig.ts";
-import BrokenImageIcon from '@mui/icons-material/BrokenImage';
 import type {BookWithId} from "../../types/bookType.ts";
+import {BookImage} from "./BookImage.tsx";
 
 type BookCardProps = {
     book: BookWithId;
@@ -29,36 +29,7 @@ export function BookCard({book}: Readonly<BookCardProps>) {
             style={{minWidth: 300}}
             onClick={handleClick}
         >
-            {book.cover ? (
-                    <Box
-                        component="img"
-                        src={book.cover}
-                        alt={book.title}
-                        sx={{
-                            width: "100%",
-                            height: 200,
-                            objectFit: "cover",
-                            minWidth: 400,
-                            borderTopLeftRadius: 1,
-                            borderTopRightRadius: 1,
-                        }}
-                    />
-                ) :
-                (<Box
-                    sx={{
-                        width: "100%",
-                        height: 200,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor: "grey.200",
-                        borderTopLeftRadius: 1,
-                        borderTopRightRadius: 1,
-                    }}
-                >
-                    <BrokenImageIcon sx={{fontSize: 80, color: "grey.500"}}/>
-                </Box>)
-            }
+            <BookImage book={book} />
 
             <CardContent sx={{flexGrow: 1}}>
                 <Typography
