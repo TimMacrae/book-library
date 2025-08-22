@@ -2,18 +2,19 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
-import {useEffect} from "react";
+import {type ChangeEvent, type FormEvent, useEffect} from "react";
 
 import axios from "axios";
-import type {Book, BookForm} from "../types/bookType.ts";
+import type { BookId} from "../types/bookType.ts";
 import {routerConfig} from "./routerConfig.ts";
 import { useParams } from "react-router-dom";
 
 
 export function BookEditPage() {
     const {bookId} = useParams();
-    function getBookDataById(bookId){
+    function getBookDataById(bookId:string){
         // Mock bis get done
+        console.log(bookId);
         return {
             id:"123",
             title:"The Lord of The Rings",
@@ -25,9 +26,10 @@ export function BookEditPage() {
             isbn : "9780007123827"
         }
     }
-    let bookData:Book = getBookDataById(bookId);
+    let bookData:BookId = getBookDataById(bookId ?? "");
+    console.log(bookData);
 
-    const [book, setBook] = React.useState<Book>({
+    const [book, setBook] = React.useState<BookId>({
         id:"",
         title:"",
         description : "",
@@ -37,19 +39,19 @@ export function BookEditPage() {
         language : "",
         isbn : ""
     });
-    function setBookValue(e){
+    function setBookValue(e:ChangeEvent<HTMLInputElement>){
         setBook(prev => ({
-            ...prev,                     // alle alten Felder behalten
-            [e.target.name]: (e.target.name=="authors"?e.target.value.split(","):e.target.value) // nur das Feld ändern, das im Input steht
+            ...prev,
+            [e.target.name]: (e.target.name=="authors"?e.target.value.split(","):e.target.value)
         }));
     }
-    function sendForm(e){
+    function sendForm(e:FormEvent<HTMLFormElement> ){
         e.preventDefault();
         axios.put(routerConfig.API.BOOKS, book);
     }
 
     useEffect(()=>{
-        setBook(getBookDataById(bookId));
+        setBook(getBookDataById(bookId??""));
     },[])
 
     return (
@@ -85,7 +87,7 @@ export function BookEditPage() {
                     name="authors"
                     label="Authors"
                     variant="outlined"
-                    value={typeof book.authors==="array"?book.authors?.map((author)=>author+", "):book.authors}
+                    value={Array.isArray(book.authors) ? book.authors.join(", ") : book.authors}
                     onChange={setBookValue}
                     helperText="Authors of the book, seperated by ','"
                     fullWidth
