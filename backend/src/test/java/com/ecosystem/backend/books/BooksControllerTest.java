@@ -106,6 +106,40 @@ class BooksControllerTest {
     }
 
     @Test
+    void updateBook_ShouldReturnCreatedBook() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/books").contentType(MediaType.APPLICATION_JSON).content(
+                        """
+                                {
+                                "id": "123",
+                                "title":"title",
+                                "description": "description",
+                                "authors":["authors"],
+                                "firstPublishDate": "2020",
+                                "cover":"cover.png",
+                                "language":"en",
+                                "isbn": "123456789"
+                                }
+                                """
+                ))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
+                                {
+                                
+                                "title":"title",
+                                "description": "description",
+                                "authors":["authors"],
+                                "firstPublishDate": "2020",
+                                "cover":"cover.png",
+                                "language":"en",
+                                "isbn": "123456789"
+                                }
+                                """
+                ))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
+    }
+
+    @Test
     @DirtiesContext
     void getAllBooks() throws Exception {
         // GIVEN
