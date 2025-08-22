@@ -2,10 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import { BookDetailPage } from "./BookDetailPage.tsx";
 import {routerConfig} from "./routerConfig.ts";
-import {HomePage} from "./HomePage.tsx";
 import {BookEditPage} from "./BookEditPage.tsx";
-import type {Book} from "../types/bookType.ts";
-
 
 export function Router() {
     return (
