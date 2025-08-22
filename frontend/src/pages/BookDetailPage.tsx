@@ -15,7 +15,7 @@ export function BookDetailPage() {
     const getBookDetails = async () => {
         setLoading(true);
         try {
-            const response = await axios.get<BookWithId>(`${routerConfig.URL.BOOKS}/${id}`);
+            const response = await axios.get<BookWithId>(`${routerConfig.API.BOOKS}/${id}`);
             if (response.status === 200) {
                 setBook(response.data);
             }
