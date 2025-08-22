@@ -1,5 +1,6 @@
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import type {BookWithId} from "../../types/bookType.ts";
+import BrokenImageIcon from "@mui/icons-material/BrokenImage";
 
 
 type BookCardProps = {
@@ -8,15 +9,37 @@ type BookCardProps = {
 
 export function BookDetailCard({book}:BookCardProps) {
     return (
-        <Card sx={{ maxWidth: 700, margin: "auto", mt: 4, p: 2, borderRadius: 3 }}>
-    {book.cover && (
-        <Box
-            component="img"
-            src={book.cover}
-            alt={book.title}
-            sx={{ width: "100%", height: 300, objectFit: "cover", mb: 1, borderRadius: 4 }}
-        />
-    )}
+        <Card sx={{ maxWidth: 300, margin: "auto", mt: 4, borderRadius: 3 }}>
+            {book.cover ? (
+                    <Box
+                        component="img"
+                        src={book.cover}
+                        alt={book.title}
+                        sx={{
+                            width: "100%",
+                            height: 200,
+                            objectFit: "cover",
+                            minWidth: 400,
+                            borderTopLeftRadius: 1,
+                            borderTopRightRadius: 1,
+                        }}
+                    />
+                ) :
+                (<Box
+                    sx={{
+                        width: "100%",
+                        height: 200,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "grey.200",
+                        borderTopLeftRadius: 1,
+                        borderTopRightRadius: 1,
+                    }}
+                >
+                    <BrokenImageIcon sx={{fontSize: 80, color: "grey.500"}}/>
+                </Box>)
+            }
 
     <CardContent sx={{ pt: 1 }}>
         <Typography
@@ -51,7 +74,7 @@ export function BookDetailCard({book}:BookCardProps) {
         <Box
             sx={{
                 display: "grid",
-                gridTemplateColumns: "180px 1fr",
+                gridTemplateColumns: "70px 1fr",
                 rowGap: 1.5,
                 columnGap: 2,
                 textAlign: "left",
