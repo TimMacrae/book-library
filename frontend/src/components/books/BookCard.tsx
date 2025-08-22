@@ -2,10 +2,10 @@ import {useNavigate} from "react-router-dom";
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import {routerConfig} from "../../pages/routerConfig.ts";
 import BrokenImageIcon from '@mui/icons-material/BrokenImage';
-import type {Book} from "../../types/bookTypes.ts";
+import type {BookWithId} from "../../types/bookType.ts";
 
 type BookCardProps = {
-    book: Book;
+    book: BookWithId;
 };
 
 export function BookCard({book}: Readonly<BookCardProps>) {
