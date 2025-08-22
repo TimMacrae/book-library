@@ -12,7 +12,7 @@ export function BookCard({book}: Readonly<BookCardProps>) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`${routerConfig.URL.BOOKS}/${book.id}`);
+        navigate(routerConfig.URL.BOOK_ID(book.id));
     };
 
     return (
