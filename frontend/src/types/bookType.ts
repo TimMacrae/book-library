@@ -11,3 +11,7 @@ export type Book = {
 export type BookForm = Book & {
     authorInput: string;
 }
+
+export type BookId = Book & {
+    id: string;
+}
