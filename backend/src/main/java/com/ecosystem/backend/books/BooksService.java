@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static com.ecosystem.backend.utility.IdService.generateId;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -42,6 +43,7 @@ public class BooksService {
         booksRepo.deleteById(id);
     }
 
+
     public Book updateBook(Book bookData) {
         //find book in db
         try {
@@ -66,5 +68,12 @@ public class BooksService {
         } catch (Exception exception) {
             throw new BookCouldNotBeCreated();
         }
+
+    public List<Book> getAllBooks() {
+        return booksRepo.findAll();
+    }
+    public Book getBookById(String id) {
+        return booksRepo.findById(id)
+                .orElseThrow(() -> new BookWasNotFound(id));
     }
 }
