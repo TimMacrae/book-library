@@ -18,7 +18,7 @@ public class LibraryRestClientService {
 
     public LibraryResponseDto searchLibrary (String searchQuery) {
         try {
-            return  restClient.post().uri(searchQuery).retrieve().body(LibraryResponseDto.class);
+            return  restClient.get().uri(searchQuery).retrieve().body(LibraryResponseDto.class);
         }catch (Exception exception) {
             throw new LibraryRestClientFailedException(exception.getMessage()) ;
         }
