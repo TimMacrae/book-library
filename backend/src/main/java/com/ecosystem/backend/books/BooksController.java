@@ -39,6 +39,12 @@ public class BooksController {
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
     }
 
+    @PutMapping
+    public ResponseEntity<Book> updateBook(@Valid @RequestBody Book bookData) {
+        Book book = booksService.updateBook(bookData);
+        return ResponseEntity.status(HttpStatus.OK).body(book);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBookById(@PathVariable String id) throws BookWasNotFound {
