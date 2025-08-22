@@ -107,10 +107,21 @@ class BooksControllerTest {
 
     @Test
     void updateBook_ShouldReturnCreatedBook() throws Exception {
+        Book book = new Book(
+                "1",
+                "title",
+                "description",
+                List.of("author"),
+                "2020",
+                "cover.png",
+                "en",
+                "123456789"
+        );
+        booksRepo.save(book);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/books").contentType(MediaType.APPLICATION_JSON).content(
                         """
                                 {
-                                "id": "123",
+                                "id": "1",
                                 "title":"title",
                                 "description": "description",
                                 "authors":["authors"],
@@ -125,7 +136,7 @@ class BooksControllerTest {
                 .andExpect(MockMvcResultMatchers.content().json(
                         """
                                 {
-                                
+                                "id": "1",
                                 "title":"title",
                                 "description": "description",
                                 "authors":["authors"],
