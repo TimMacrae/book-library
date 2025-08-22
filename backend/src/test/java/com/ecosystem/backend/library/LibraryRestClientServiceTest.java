@@ -54,7 +54,7 @@ class LibraryRestClientServiceTest {
     }
 
     @Test
-    void testCheckTodoSpelling_failure_throwsException() {
+    void searchLibrary_shouldFail_andThrowsException() {
         when(restClient.get()).thenThrow(new RuntimeException("API error"));
 
         LibraryRestClientFailedException ex = assertThrows(
