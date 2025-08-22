@@ -68,6 +68,7 @@ public class BooksService {
         } catch (Exception exception) {
             throw new BookCouldNotBeCreated();
         }
+    }
 
     public List<Book> getAllBooks() {
         return booksRepo.findAll();
