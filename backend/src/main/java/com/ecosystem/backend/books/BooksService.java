@@ -4,7 +4,6 @@ import com.ecosystem.backend.books.dto.BookDto;
 import com.ecosystem.backend.books.models.Book;
 import com.ecosystem.backend.books.repository.BooksRepo;
 import com.ecosystem.backend.exception.BookCouldNotBeCreated;
-import com.ecosystem.backend.exception.BookCouldNotBeDeleted;
 import com.ecosystem.backend.exception.BookWasNotFound;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
