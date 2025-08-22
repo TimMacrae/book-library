@@ -3,6 +3,7 @@ import {type ChangeEvent, type FormEvent, useState} from "react";
 import type {Book, BookForm} from "../../types/bookType.ts";
 import axios from "axios";
 import {routerConfig} from "../../pages/routerConfig.ts";
+import AddIcon from '@mui/icons-material/Add';
 
 const style = {
     position: 'absolute',
@@ -31,13 +32,18 @@ const defaultBookForm:BookForm = {
     isbn: ""
 }
 
-export function BooksButtonAdd() {
+type BooksButtonAddProps = {
+    getBooks: () => void;
+}
+
+export function BooksButtonAdd({getBooks}: BooksButtonAddProps) {
     const [open, setOpen] = useState(false);
     const [form, setForm] = useState<BookForm>(defaultBookForm);
 
      async function postBook(book:Book) {
         try {
             const response = await axios.post(routerConfig.API.BOOKS, book);
+
             return response.data;
         } catch (error) {
             throw error;
@@ -69,17 +75,18 @@ export function BooksButtonAdd() {
         }));
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const { authorInput, ...submitForm } = form;
-        postBook(submitForm);
+        await postBook(submitForm);
         setOpen(false);
         setForm(defaultBookForm);
+        getBooks()
     };
 
     return (
         <>
-            <Button variant="outlined" onClick={handleOpen}>Add Book</Button>
+            <Button variant="outlined" size={"small"} sx={{minWidth:50 }} onClick={handleOpen}><AddIcon/></Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -110,7 +117,6 @@ export function BooksButtonAdd() {
                             name="authorInput"
                             value={form.authorInput}
                             onChange={handleChange}
-                            required
                             onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); handleAddAuthor(); } }}
                         />
                         <Button variant="contained" onClick={handleAddAuthor}>Add</Button>
@@ -135,7 +141,6 @@ export function BooksButtonAdd() {
                         name="cover"
                         value={form.cover}
                         onChange={handleChange}
-                        required
                         fullWidth
                     />
                     <TextField
