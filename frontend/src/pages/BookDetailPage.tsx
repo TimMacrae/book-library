@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import {TitleActionBar} from "../components/TitleActionBar.tsx";
 import BooksButtonDelete from "../components/books/BooksButtonDelete.tsx";
 import {BooksButtonEdit} from "../components/books/BooksButtonEdit.tsx";
+import {BooksButtonFavorite} from "../components/books/BooksButtonFavorite.tsx";
 
 export function BookDetailPage() {
     const { id } = useParams<{ id: string }>();
@@ -41,8 +42,9 @@ export function BookDetailPage() {
         <Container>
             <TitleActionBar title={book.title || "Book"}>
                <div style={{ display: "flex", gap: 4}}>
-                   <BooksButtonDelete book={book} />
+                   <BooksButtonFavorite book={book} />
                    <BooksButtonEdit book={book}  />
+                   <BooksButtonDelete book={book} />
                </div>
             </TitleActionBar>
             <BookDetailCard book={book} />
