@@ -1,12 +1,16 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import {Button} from "@mui/material";
 
-export function BooksButtonFavorite() {
+export function BooksButtonFavorite(props:Readonly<any>) {
 
+    function favoriteBook(){
+
+    }
     return (
         <>
-            <button>
+            <Button  variant="outlined"  onClick={favoriteBook}>
                 <FavoriteIcon />
-            </button>
+            </Button>
         </>
     )
 }
