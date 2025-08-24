@@ -9,6 +9,7 @@ import {routerConfig} from "./routerConfig.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import {TitleActionBar} from "../components/TitleActionBar.tsx";
 import Container from "@mui/material/Container";
+import {BooksButtonCancel} from "../components/books/BooksButtonCancel.tsx";
 
 
 export function BookEditPage() {
@@ -136,6 +137,7 @@ export function BookEditPage() {
                     onChange={setBookValue}
                     fullWidth
                 /><br/>
+                <BooksButtonCancel />
                 <Button type={"submit"} variant={"contained"}>Save</Button>
             </Box>
         </Container>

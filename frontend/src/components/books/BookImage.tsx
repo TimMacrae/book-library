@@ -15,8 +15,7 @@ export function BookImage({book}: BookImageProps) {
             sx={{
                 width: "100%",
                 height: 200,
-                objectFit: "cover",
-                minWidth: 400,
+                objectFit: "contain",
                 borderTopLeftRadius: 1,
                 borderTopRightRadius: 1,
             }}
