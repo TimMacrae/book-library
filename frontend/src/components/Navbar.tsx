@@ -12,14 +12,27 @@ import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import {Link} from "react-router-dom";
 import {routerConfig} from "../pages/routerConfig.ts";
+import type {User} from "../types/userType.ts";
 
 const pages = [{name: "My Books", url: routerConfig.URL.HOME}, {
     name: 'Library',
     url: routerConfig.URL.LIBRARY
 }, {name: 'Favorites', url: routerConfig.URL.FAVORITES}];
 
-export function Navbar() {
+
+type NavbarProps = {
+    user:User
+}
+
+export function Navbar({user}:NavbarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+
+
+    const handleLogout = () => {
+        const host = window.location.host === routerConfig.API.HOST5173 ? routerConfig.API.HOST8080: window.location.origin
+
+        window.open(host + "/logout", '_self')
+    }
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -36,7 +49,8 @@ export function Navbar() {
                 <Toolbar disableGutters sx={{ height: 60}}  >
                     <Link to={routerConfig.URL.HOME}>
                         <AutoStoriesIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/></Link>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+
+                    {(user && <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
 
                         <IconButton
                             size="large"
@@ -72,25 +86,26 @@ export function Navbar() {
                                 </MenuItem>
                             ))}
                         </Menu>
-                    </Box>
-                    <AutoStoriesIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
+                    </Box>)}
+                    {user &&(<AutoStoriesIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>)}
 
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    {user &&(<Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {pages.map((page) => (
                             <Link to={page.url} key={page.name}>
-                            <Button
-                                key={page.name}
-                                onClick={handleCloseNavMenu}
-                                sx={{my: 2, color: 'white', display: 'block'}}
-                            >
-                                {page.name}
-                            </Button>
+                                <Button
+                                    key={page.name}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{my: 2, color: 'white', display: 'block'}}
+                                >
+                                    {page.name}
+                                </Button>
                             </Link>
                         ))}
-                    </Box>
-                    <Box sx={{flexGrow: 0}}>
-                        <Button variant="outlined" style={{color: "#fff", borderColor: "#fff"}}>Logout</Button>
-                    </Box>
+                    </Box>)}
+                    {user&&(<Box sx={{flexGrow: 0}}>
+                        <Button onClick={handleLogout} variant="outlined"
+                                style={{color: "#fff", borderColor: "#fff"}}>Logout</Button>
+                    </Box>)}
                 </Toolbar>
             </Container>
         </AppBar>
