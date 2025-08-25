@@ -18,7 +18,7 @@ export function BookCard({book}: Readonly<BookCardProps>) {
     return (
         <Card
             sx={{
-                maxWidth: 300,
+                width: "100%",
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
@@ -26,7 +26,6 @@ export function BookCard({book}: Readonly<BookCardProps>) {
                 transition: "transform 0.2s, box-shadow 0.2s",
                 "&:hover": {transform: "scale(1.02)", boxShadow: 6},
             }}
-            style={{minWidth: 300}}
             onClick={handleClick}
         >
             <BookImage book={book} />
