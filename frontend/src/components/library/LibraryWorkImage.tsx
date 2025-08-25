@@ -2,11 +2,11 @@ import {Box} from "@mui/material";
 import BrokenImageIcon from "@mui/icons-material/BrokenImage";
 import type {LibraryWork} from "../../types/libraryType.ts";
 
-type BookImageProps = {
+type LibraryWorkImageProps = {
     libraryWork: LibraryWork
 }
 
-export function LibraryWorkImage({libraryWork}: BookImageProps) {
+export function LibraryWorkImage({libraryWork}: LibraryWorkImageProps) {
     if (libraryWork.cover_i) {
         const cover_uri = "https://covers.openlibrary.org/b/id/" + libraryWork.cover_i + "-L.jpg"
         return (<Box
