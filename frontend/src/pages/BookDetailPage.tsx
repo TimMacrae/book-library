@@ -6,6 +6,10 @@ import axios from "axios";
 import {routerConfig} from "./routerConfig.ts";
 import {LoadingSpinner} from "../components/LoadingSpinner.tsx";
 import {BookDetailCard} from "../components/books/BookDetailCard.tsx";
+import Container from "@mui/material/Container";
+import {TitleActionBar} from "../components/TitleActionBar.tsx";
+import BooksButtonDelete from "../components/books/BooksButtonDelete.tsx";
+import {BooksButtonEdit} from "../components/books/BooksButtonEdit.tsx";
 
 export function BookDetailPage() {
     const { id } = useParams<{ id: string }>();
@@ -13,9 +17,10 @@ export function BookDetailPage() {
     const [loading, setLoading] = useState(true);
 
     const getBookDetails = async () => {
+        if (!id) return
         setLoading(true);
         try {
-            const response = await axios.get<BookWithId>(`${routerConfig.URL.BOOKS}/${id}`);
+            const response = await axios.get<BookWithId>(routerConfig.API.BOOK_ID(id));
             if (response.status === 200) {
                 setBook(response.data);
             }
@@ -30,9 +35,18 @@ export function BookDetailPage() {
     }, [id]);
 
     if (loading) return <LoadingSpinner/>;
-    if (!book) return <Typography>Buch nicht gefunden!</Typography>;
+    if (!book) return <Typography>Book not found!</Typography>;
 
     return (
-        <BookDetailCard book={book} />
+        <Container>
+            <TitleActionBar title={book.title || "Book"}>
+               <div style={{ display: "flex", gap: 4}}>
+                   <BooksButtonDelete book={book} />
+                   <BooksButtonEdit book={book}  />
+               </div>
+            </TitleActionBar>
+            <BookDetailCard book={book} />
+        </Container>
+
     );
 }

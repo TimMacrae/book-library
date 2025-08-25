@@ -4,6 +4,8 @@ import type {BookWithId} from "../../types/bookType.ts";
 import axios from 'axios';
 import {routerConfig} from "../../pages/routerConfig.ts";
 import {BooksSnackbar} from "../BooksSnackbar.tsx";
+import DeleteIcon from '@mui/icons-material/Delete';
+import {useNavigate} from "react-router-dom";
 
 type BooksButtonDeleteProps = {
     book: BookWithId
@@ -13,6 +15,7 @@ export default function BooksButtonDelete (props: BooksButtonDeleteProps) {
     const [open, setOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [snackbarMessage, setSnackbarMessage] = useState("")
+    const navigate = useNavigate()
 
     function handleClickOpen() {
         setOpen(true);
@@ -24,8 +27,9 @@ export default function BooksButtonDelete (props: BooksButtonDeleteProps) {
 
     async function handleDelete(id: string) {
         try {
-            await axios.delete(`${routerConfig.API.BOOKS}/${id}`);
+            await axios.delete(routerConfig.API.BOOK_ID(id));
             setSnackbarMessage("Book successfully deleted");
+            navigate(routerConfig.URL.HOME);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 setSnackbarMessage(error.message);
@@ -40,7 +44,7 @@ export default function BooksButtonDelete (props: BooksButtonDeleteProps) {
 
     return (
         <>
-            <Button variant="outlined" onClick={handleClickOpen}>Delete</Button>
+            <Button variant="outlined"  onClick={handleClickOpen}><DeleteIcon/></Button>
             <BooksSnackbar open={snackbarOpen} setOpen={setSnackbarOpen} message={snackbarMessage}/>
             <Dialog
                 open={open}
