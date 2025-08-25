@@ -27,7 +27,7 @@ class LibraryControllerTest {
     private LibraryRestClientService libraryRestClientService;
 
     @Test
-    void getLibrarySearch_shouldReturnTransformedResult() throws Exception {
+    void getLibrarySearchWithTitleAndAuthor_shouldReturnTransformedResult() throws Exception {
         LibraryDocDto doc = new LibraryDocDto(
                 List.of("Charlotte Brontë"),
         1800,
@@ -43,6 +43,77 @@ class LibraryControllerTest {
         mockMvc.perform(get("/api/library")
                         .param("title", "Shirley")
                         .param("author", "̈Brontë")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].key", is("/works/OL1095397W")))
+                .andExpect(jsonPath("$[0].title", is("Shirley")))
+                .andExpect(jsonPath("$[0].author_name[0]", is("Charlotte Brontë")))
+                .andExpect(jsonPath("$[0].first_publish_year", is(1800)));
+    }
+
+    @Test
+    void getLibrarySearchWithTitle_shouldReturnTransformedResult() throws Exception {
+        LibraryDocDto doc = new LibraryDocDto(
+                List.of("Charlotte Brontë"),
+                1800,
+                "/works/OL1095397W",
+                "Shirley"
+        );
+        LibraryResponseDto responseDto = new LibraryResponseDto(
+                List.of(doc));
+
+        Mockito.when(libraryRestClientService.searchLibrary(anyString()))
+                .thenReturn(responseDto);
+
+        mockMvc.perform(get("/api/library")
+                        .param("title", "Shirley")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].key", is("/works/OL1095397W")))
+                .andExpect(jsonPath("$[0].title", is("Shirley")))
+                .andExpect(jsonPath("$[0].author_name[0]", is("Charlotte Brontë")))
+                .andExpect(jsonPath("$[0].first_publish_year", is(1800)));
+    }
+
+    @Test
+    void getLibrarySearchWithAuthor_shouldReturnTransformedResult() throws Exception {
+        LibraryDocDto doc = new LibraryDocDto(
+                List.of("Charlotte Brontë"),
+                1800,
+                "/works/OL1095397W",
+                "Shirley"
+        );
+        LibraryResponseDto responseDto = new LibraryResponseDto(
+                List.of(doc));
+
+        Mockito.when(libraryRestClientService.searchLibrary(anyString()))
+                .thenReturn(responseDto);
+
+        mockMvc.perform(get("/api/library")
+                        .param("author", "̈Brontë")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].key", is("/works/OL1095397W")))
+                .andExpect(jsonPath("$[0].title", is("Shirley")))
+                .andExpect(jsonPath("$[0].author_name[0]", is("Charlotte Brontë")))
+                .andExpect(jsonPath("$[0].first_publish_year", is(1800)));
+    }
+
+    @Test
+    void getLibrarySearchWithAuthorWithNothing_shouldReturnTransformedResult() throws Exception {
+        LibraryDocDto doc = new LibraryDocDto(
+                List.of("Charlotte Brontë"),
+                1800,
+                "/works/OL1095397W",
+                "Shirley"
+        );
+        LibraryResponseDto responseDto = new LibraryResponseDto(
+                List.of(doc));
+
+        Mockito.when(libraryRestClientService.searchLibrary(anyString()))
+                .thenReturn(responseDto);
+
+        mockMvc.perform(get("/api/library")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].key", is("/works/OL1095397W")))
