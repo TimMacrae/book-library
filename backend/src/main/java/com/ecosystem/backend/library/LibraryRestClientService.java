@@ -18,15 +18,10 @@ public class LibraryRestClientService {
 
     }
 
-    public LibraryResponseDto searchLibrary (String title, String author) {;
-        String uri = UriComponentsBuilder.fromPath("/search.json")
-                .queryParam("title", title)
-                .queryParam("author", author)
-                .build()
-                .toUriString();
-        System.out.println("searchLibrary: Uri:" + uri);
+    public LibraryResponseDto searchLibrary (String query) {;
         try {
-            return  restClient.get().uri(uri).retrieve().body(LibraryResponseDto.class);
+            System.out.println("/search.json?"+query);
+            return  restClient.get().uri("/search.json?"+query).retrieve().body(LibraryResponseDto.class);
         }catch (Exception exception) {
             throw new LibraryRestClientFailedException(exception.getMessage()) ;
         }

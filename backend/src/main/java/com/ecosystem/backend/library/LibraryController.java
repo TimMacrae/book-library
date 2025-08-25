@@ -26,8 +26,24 @@ public class LibraryController {
     }
 
     @GetMapping
-    public List<LibraryDocShort> getLibrarySearch(@RequestParam String title, @RequestParam String author) {
-        LibraryResponseDto result = libraryRestClientService.searchLibrary(title, author);
+    public List<LibraryDocShort> getLibrarySearch(@RequestParam(required=false) String title,
+                                                  @RequestParam(required=false) String author) {
+        String query = "";
+        if (title != null) {
+            query = "title=" + title;
+        }
+        if (author != null) {
+            if (query.isEmpty()) {
+                query= "author=" + author;
+            } else {
+                query = query+ "&author=" + author;
+            }
+        }
+        if (query.isEmpty()) {
+            query = "q=trending_score_hourly_sum:[1+TO+1]+language:ger&sort=trending&limit=5";
+        }
+        System.out.println(query);
+        LibraryResponseDto result = libraryRestClientService.searchLibrary(query);
         return transformLibraryDocDtoToLibraryShort(result);
     }
 

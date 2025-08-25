@@ -5,7 +5,6 @@ import com.ecosystem.backend.library.dto.LibraryResponseDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,20 +29,15 @@ class LibraryControllerTest {
     @Test
     void getLibrarySearch_shouldReturnTransformedResult() throws Exception {
         LibraryDocDto doc = new LibraryDocDto(
-                123,
-                false,
-                4,
-                "Die Vita des Josef Busn&#257;y&#257;",
-                List.of("Ralph Barczok"),
-                2021,
-                "/works/OL25319939W",
-                List.of("asdf"),
-                List.of("OL8280123A"),
-                false
+                List.of("Charlotte Bronte\u0308"),
+        1800,
+                "/works/OL1095397W",
+        "Shirley"
         );
-        LibraryResponseDto responseDto = new LibraryResponseDto(0,1,List.of(doc));
+        LibraryResponseDto responseDto = new LibraryResponseDto(
+                List.of(doc));
 
-        Mockito.when(libraryRestClientService.searchLibrary(anyString(), anyString()))
+        Mockito.when(libraryRestClientService.searchLibrary(anyString()))
                 .thenReturn(responseDto);
 
         mockMvc.perform(get("/api/library")
@@ -51,9 +45,9 @@ class LibraryControllerTest {
                         .param("author", "author1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].key", is("/works/OL25319939W")))
-                .andExpect(jsonPath("$[0].title", is("Die Vita des Josef Busn&#257;y&#257;")))
-                .andExpect(jsonPath("$[0].author_name[0]", is("Ralph Barczok")))
-                .andExpect(jsonPath("$[0].first_publish_year", is(2021)));
+                .andExpect(jsonPath("$[0].key", is("/works/OL1095397W")))
+                .andExpect(jsonPath("$[0].title", is("Shirley")))
+                .andExpect(jsonPath("$[0].author_name[0]", is("Charlotte Bronte\u0308")))
+                .andExpect(jsonPath("$[0].first_publish_year", is(1800)));
     }
 }
