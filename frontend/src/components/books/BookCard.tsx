@@ -29,7 +29,7 @@ export function BookCard({book}: Readonly<BookCardProps>) {
             style={{minWidth: 300}}
             onClick={handleClick}
         >
-            <BookImage book={book} />
+            <BookImage cover_uri={book.cover} title={book.title} />
 
             <CardContent sx={{flexGrow: 1}}>
                 <Typography

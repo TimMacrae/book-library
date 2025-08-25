@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography} from "@mui/material";
 import type {LibraryWork} from "../../types/libraryType.ts";
-import { LibraryWorkImage } from "./LibraryWorkImage.tsx";
+import {BookImage} from "../books/BookImage.tsx";
 
 type LibraryWorkCardProps = {
     libraryWork: LibraryWork;
@@ -21,7 +21,10 @@ export function LibraryWorkCard({libraryWork}: Readonly<LibraryWorkCardProps>) {
             }}
             style={{minWidth: 300}}
         >
-            <LibraryWorkImage libraryWork={libraryWork} />
+            <BookImage
+                cover_uri={libraryWork.cover_i ? "https://covers.openlibrary.org/b/id/" + libraryWork.cover_i + "-L.jpg" : ""}
+                title={libraryWork.title}
+            />
 
             <CardContent sx={{flexGrow: 1}}>
                 <Typography
