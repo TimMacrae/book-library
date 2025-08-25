@@ -5,7 +5,7 @@ import com.ecosystem.backend.library.dto.LibraryResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.util.UriComponentsBuilder;
+
 
 @Service
 public class LibraryRestClientService {
@@ -18,7 +18,7 @@ public class LibraryRestClientService {
 
     }
 
-    public LibraryResponseDto searchLibrary (String query) {;
+    public LibraryResponseDto searchLibrary (String query) {
         try {
             System.out.println("/search.json?"+query);
             return  restClient.get().uri("/search.json?"+query).retrieve().body(LibraryResponseDto.class);

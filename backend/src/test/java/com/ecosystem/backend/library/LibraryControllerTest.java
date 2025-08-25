@@ -29,7 +29,7 @@ class LibraryControllerTest {
     @Test
     void getLibrarySearch_shouldReturnTransformedResult() throws Exception {
         LibraryDocDto doc = new LibraryDocDto(
-                List.of("Charlotte Bronte\u0308"),
+                List.of("Charlotte Brontë"),
         1800,
                 "/works/OL1095397W",
         "Shirley"
@@ -41,8 +41,8 @@ class LibraryControllerTest {
                 .thenReturn(responseDto);
 
         mockMvc.perform(get("/api/library")
-                        .param("title", "Easy Testing")
-                        .param("author", "author1")
+                        .param("title", "Shirley")
+                        .param("author", "̈Brontë")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].key", is("/works/OL1095397W")))
