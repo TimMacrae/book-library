@@ -20,7 +20,6 @@ public class LibraryRestClientService {
 
     public LibraryResponseDto searchLibrary (String query) {
         try {
-            System.out.println("/search.json?"+query);
             return  restClient.get().uri("/search.json?"+query).retrieve().body(LibraryResponseDto.class);
         }catch (Exception exception) {
             throw new LibraryRestClientFailedException(exception.getMessage()) ;

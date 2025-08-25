@@ -12,4 +12,5 @@ public class LibraryDocDto {
     private Integer first_publish_year;
     private String key;
     private String title;
+    private Integer cover_i;
 }

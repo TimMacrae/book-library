@@ -40,7 +40,8 @@ class LibraryRestClientServiceTest {
         var doc = new LibraryDocDto(List.of("Charlotte Bronte"),
                 1800,
                 "/works/OL1095397W",
-                "Shirley");
+                "Shirley",
+                11024634);
         var expected = new LibraryResponseDto(List.of(doc));
 
         when(restClient
