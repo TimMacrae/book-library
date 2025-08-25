@@ -37,9 +37,12 @@ class LibraryRestClientServiceTest {
 
     @Test
     void searchLibrary_shouldUseGET_andReturnResponse() {
-        var doc = new LibraryDocDto(1, true, 2, "test", List.of("Tim"), 2002,
-                "123456", List.of("asdqwe"), List.of("id"), true);
-        var expected = new LibraryResponseDto(1, 1, List.of(doc));
+        var doc = new LibraryDocDto(List.of("Charlotte Bronte"),
+                1800,
+                "/works/OL1095397W",
+                "Shirley",
+                11024634);
+        var expected = new LibraryResponseDto(List.of(doc));
 
         when(restClient
                 .get()
@@ -48,7 +51,7 @@ class LibraryRestClientServiceTest {
                 .body(LibraryResponseDto.class))
                 .thenReturn(expected);
 
-        var result = libraryRestClientService.searchLibrary("/search.json?q=foo");
+        var result = libraryRestClientService.searchLibrary("q=shirley");
 
         assertThat(result).isEqualTo(expected);
     }
@@ -59,7 +62,7 @@ class LibraryRestClientServiceTest {
 
         LibraryRestClientFailedException ex = assertThrows(
                 LibraryRestClientFailedException.class,
-                () -> libraryRestClientService.searchLibrary("/search.json?q=foo")
+                () -> libraryRestClientService.searchLibrary("q=shirley")
         );
 
         assertTrue(ex.getMessage().contains("LibraryClientFailed: API error"));

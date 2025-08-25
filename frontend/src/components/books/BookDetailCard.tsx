@@ -10,7 +10,7 @@ type BookCardProps = {
 export function BookDetailCard({book}: BookCardProps) {
     return (
         <Card sx={{maxWidth: 300, margin: "auto", mt: 4, borderRadius: 3}}>
-            <BookImage book={book}/>
+            <BookImage cover_uri={book.cover} title={book.title}/>
 
             <CardContent sx={{pt: 1}}>
                 <Typography

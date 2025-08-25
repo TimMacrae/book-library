@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+
 @Service
 public class LibraryRestClientService {
 
@@ -14,14 +15,14 @@ public class LibraryRestClientService {
     public LibraryRestClientService(RestClient.Builder restClientBuilder,
                                     @Value("${openlibrary.api.baseurl}") String baseUrl) {
         this.restClient = restClientBuilder.baseUrl(baseUrl).build();
+
     }
 
-    public LibraryResponseDto searchLibrary (String searchQuery) {
+    public LibraryResponseDto searchLibrary (String query) {
         try {
-            return  restClient.get().uri(searchQuery).retrieve().body(LibraryResponseDto.class);
+            return  restClient.get().uri("/search.json?"+query).retrieve().body(LibraryResponseDto.class);
         }catch (Exception exception) {
             throw new LibraryRestClientFailedException(exception.getMessage()) ;
         }
     }
-
 }

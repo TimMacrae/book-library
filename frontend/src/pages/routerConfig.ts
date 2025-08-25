@@ -15,6 +15,7 @@ type URL = {
 
 type API = {
     BOOKS: string,
+    LIBRARY: string
     BOOK_ID: (id:string)=>string,
 }
 
@@ -30,6 +31,7 @@ export const routerConfig:RouterConfig = {
     },
     API:{
         BOOKS:"/api/books",
+        LIBRARY:"/api/library",
         BOOK_ID:(id:string)=>`/api/books/${id}`,
     }
 }

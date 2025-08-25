@@ -1,19 +1,12 @@
-import {useNavigate} from "react-router-dom";
 import { Card, CardContent, Typography} from "@mui/material";
-import {routerConfig} from "../../pages/routerConfig.ts";
-import type {BookWithId} from "../../types/bookType.ts";
-import {BookImage} from "./BookImage.tsx";
+import type {LibraryWork} from "../../types/libraryType.ts";
+import {BookImage} from "../books/BookImage.tsx";
 
-type BookCardProps = {
-    book: BookWithId;
+type LibraryWorkCardProps = {
+    libraryWork: LibraryWork;
 };
 
-export function BookCard({book}: Readonly<BookCardProps>) {
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate(routerConfig.URL.BOOK_ID(book.id));
-    };
+export function LibraryWorkCard({libraryWork}: Readonly<LibraryWorkCardProps>) {
 
     return (
         <Card
@@ -27,18 +20,20 @@ export function BookCard({book}: Readonly<BookCardProps>) {
                 "&:hover": {transform: "scale(1.02)", boxShadow: 6},
             }}
             style={{minWidth: 300}}
-            onClick={handleClick}
         >
-            <BookImage cover_uri={book.cover} title={book.title} />
+            <BookImage
+                cover_uri={libraryWork.cover_i ? "https://covers.openlibrary.org/b/id/" + libraryWork.cover_i + "-L.jpg" : ""}
+                title={libraryWork.title}
+            />
 
             <CardContent sx={{flexGrow: 1}}>
                 <Typography
                     variant="h6"
                     gutterBottom
                     noWrap
-                    title={book.title}
+                    title={libraryWork.title}
                 >
-                    {book.title}
+                    {libraryWork.title}
                 </Typography>
 
                 <Typography
@@ -46,11 +41,11 @@ export function BookCard({book}: Readonly<BookCardProps>) {
                     color="text.secondary"
                     sx={{fontStyle: "italic", mb: 1}}
                 >
-                    {book.authors.join(", ")}
+                    {libraryWork.author_name.join(", ")}
                 </Typography>
 
                 <Typography variant="body2" color="text.secondary">
-                    published : {book.firstPublishDate}
+                    published : {libraryWork.first_publish_year}
                 </Typography>
             </CardContent>
         </Card>

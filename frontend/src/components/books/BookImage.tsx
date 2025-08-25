@@ -1,17 +1,17 @@
-import type {BookWithId} from "../../types/bookType.ts";
 import {Box} from "@mui/material";
 import BrokenImageIcon from "@mui/icons-material/BrokenImage";
 
 type BookImageProps = {
-    book: BookWithId
+    cover_uri: string,
+    title: string
 }
 
-export function BookImage({book}: BookImageProps) {
-    if (book.cover) {
+export function BookImage({cover_uri, title}: BookImageProps) {
+    if (cover_uri !== "") {
         return (<Box
             component="img"
-            src={book.cover}
-            alt={book.title}
+            src={cover_uri}
+            alt={title}
             sx={{
                 width: "100%",
                 height: 200,
