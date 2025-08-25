@@ -48,7 +48,7 @@ class LibraryRestClientServiceTest {
                 .body(LibraryResponseDto.class))
                 .thenReturn(expected);
 
-        var result = libraryRestClientService.searchLibrary("/search.json?q=foo");
+        var result = libraryRestClientService.searchLibrary("test", "tim");
 
         assertThat(result).isEqualTo(expected);
     }
@@ -59,7 +59,7 @@ class LibraryRestClientServiceTest {
 
         LibraryRestClientFailedException ex = assertThrows(
                 LibraryRestClientFailedException.class,
-                () -> libraryRestClientService.searchLibrary("/search.json?q=foo")
+                () -> libraryRestClientService.searchLibrary("test", "tim")
         );
 
         assertTrue(ex.getMessage().contains("LibraryClientFailed: API error"));

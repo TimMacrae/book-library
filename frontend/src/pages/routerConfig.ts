@@ -13,6 +13,7 @@ type URL = {
 
 type API = {
     BOOKS: string,
+    LIBRARY: string
 }
 
 export const routerConfig:RouterConfig = {
@@ -25,5 +26,6 @@ export const routerConfig:RouterConfig = {
     },
     API:{
         BOOKS:"/api/books",
+        LIBRARY:"/api/library"
     }
 }
