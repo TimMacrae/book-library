@@ -11,6 +11,7 @@ type URL = {
     BOOKEDIT:string,
     BOOKS: string,
     BOOK_ID: (id:string)=>string,
+    LOGIN: string,
 }
 
 type API = {
@@ -31,6 +32,7 @@ export const routerConfig:RouterConfig = {
         FAVORITES:"/favorites",
         BOOKS:"/books",
         BOOK_ID:(id:string)=>`/books/${id}`,
+        LOGIN:"/login",
     },
     API:{
         BOOKS:"/api/books",
