@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -34,6 +35,7 @@ class BooksControllerTest {
     private BooksService booksService;
 
     @Test
+    @WithMockUser
     void createBook_ShouldReturnCreatedBook() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/books").contentType(MediaType.APPLICATION_JSON).content(
                         """
@@ -66,6 +68,7 @@ class BooksControllerTest {
     }
 
     @Test
+    @WithMockUser
     void createBook_ShouldThrowAnException() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/books").contentType(MediaType.APPLICATION_JSON).content(
                         """
@@ -82,6 +85,7 @@ class BooksControllerTest {
     }
 
     @Test
+    @WithMockUser
     void deleteBookById_shouldReturnVoid_whenCalled() throws Exception {
         Book book = new Book(
                 "1",
@@ -100,12 +104,14 @@ class BooksControllerTest {
     }
 
     @Test
+    @WithMockUser
     void deleteBookById_shouldReturn404_whenBookDoesntExist() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/1"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
+    @WithMockUser
     void updateBook_ShouldReturnCreatedBook() throws Exception {
         Book book = new Book(
                 "1",
@@ -151,6 +157,7 @@ class BooksControllerTest {
     }
 
     @Test
+    @WithMockUser
     @DirtiesContext
     void getAllBooks() throws Exception {
         // GIVEN
@@ -189,7 +196,7 @@ class BooksControllerTest {
     }
 
     @Test
-    @DirtiesContext
+    @WithMockUser
     void getBookById() throws Exception {
         // GIVEN
         Book book = new Book("1", "Book 1", "Description 1", List.of("Author 1"), "2020", "cover1.jpg", "EN", "1234567890");
