@@ -4,7 +4,6 @@ import com.ecosystem.backend.books.dto.BookDto;
 import com.ecosystem.backend.books.models.Book;
 import com.ecosystem.backend.books.repository.BooksRepo;
 import com.ecosystem.backend.exception.BookCouldNotBeCreated;
-import com.ecosystem.backend.exception.BookCouldNotBeDeleted;
 import com.ecosystem.backend.exception.BookWasNotFound;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,15 +44,10 @@ public class BooksService {
 
 
     public Book updateBook(Book bookData) {
-        //find book in db
+         booksRepo.findById(bookData.id()).orElseThrow(() -> new BookWasNotFound(bookData.id()));
         try {
-            booksRepo.deleteById(bookData.id());
-        } catch (Exception exception) {
-            throw new BookCouldNotBeDeleted();
-        }
-        try {
-            Book book = new Book(
-                    generateId(),
+            Book updateBook = new Book(
+                    bookData.id(),
                     bookData.title(),
                     bookData.description(),
                     bookData.authors(),
@@ -62,9 +56,7 @@ public class BooksService {
                     bookData.language(),
                     bookData.isbn()
             );
-
-            return booksRepo.save(book);
-
+            return booksRepo.save(updateBook);
         } catch (Exception exception) {
             throw new BookCouldNotBeCreated();
         }

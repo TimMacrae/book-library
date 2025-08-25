@@ -9,7 +9,7 @@ public record BookDto(
        @NotEmpty String description,
        @NotEmpty List<String> authors,
        @NotEmpty String firstPublishDate,
-       @NotEmpty String cover,
+       String cover,
        @NotEmpty String language,
        @NotEmpty String isbn
 ) {

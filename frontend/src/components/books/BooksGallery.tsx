@@ -1,43 +1,27 @@
-import {useEffect, useState} from "react";
 import {BookCard} from "./BookCard.tsx";
-import {Box, Grid} from "@mui/material";
+import Box from '@mui/material/Box';
 import {LoadingSpinner} from "../LoadingSpinner.tsx";
-import  axios from "axios";
-import {routerConfig} from "../../pages/routerConfig.ts";
 import type {BookWithId} from "../../types/bookType.ts";
+import Grid from '@mui/material/Grid';
 
-export function BooksGallery() {
-    const [books, setBooks] = useState<BookWithId[]>([]);
-    const [loading, setLoading] = useState(true);
+type BooksGalleryProps = {
+    books: BookWithId[];
+    loading: boolean;
+}
 
-    const getBooks = async () => {
-        setLoading(true);
-        try{
-            const response = await axios.get<BookWithId[]>(routerConfig.API.BOOKS)
-            if(response.status === 200){
-                setBooks(response.data);
-            }
-            setLoading(false);
-        } catch {
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        getBooks();
-    }, []);
+export function BooksGallery({books,loading}: BooksGalleryProps) {
 
     if (loading) return <LoadingSpinner/>;
-
     return (
         <Box sx={{flexGrow: 1}}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} >
 
                 {books.map((book) => (
                     <Grid
-                        size={{ xs: 12,sm:6,  md: 3 }}
+                        size={{xs:12,sm:6,md:3}}
+                        key={book.id}
                     >
-                        <BookCard key={book.id} book={book}/>
+                        <BookCard book={book}/>
                     </Grid>
                 ))}
 
