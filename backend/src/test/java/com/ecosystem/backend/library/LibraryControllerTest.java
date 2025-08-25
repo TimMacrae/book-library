@@ -47,7 +47,7 @@ class LibraryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].key", is("/works/OL1095397W")))
                 .andExpect(jsonPath("$[0].title", is("Shirley")))
-                .andExpect(jsonPath("$[0].author_name[0]", is("Charlotte Bronte\u0308")))
+                .andExpect(jsonPath("$[0].author_name[0]", is("Charlotte Brontë")))
                 .andExpect(jsonPath("$[0].first_publish_year", is(1800)));
     }
 }
