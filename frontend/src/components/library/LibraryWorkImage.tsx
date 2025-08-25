@@ -6,13 +6,13 @@ type LibraryWorkImageProps = {
     libraryWork: LibraryWork
 }
 
-export function LibraryWorkImage({libraryWork}: LibraryWorkImageProps) {
-    if (libraryWork.cover_i) {
-        const cover_uri = "https://covers.openlibrary.org/b/id/" + libraryWork.cover_i + "-L.jpg"
+export default function LibraryWorkImage(props: LibraryWorkImageProps) {
+    if (props.libraryWork.cover_i) {
+        const cover_uri = "https://covers.openlibrary.org/b/id/" + props.libraryWork.cover_i + "-L.jpg"
         return (<Box
             component="img"
             src={cover_uri}
-            alt={libraryWork.title}
+            alt={props.libraryWork.title}
             sx={{
                 width: "100%",
                 height: 200,
